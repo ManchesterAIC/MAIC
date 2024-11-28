@@ -2,4 +2,4 @@
 
 Welcome to Manchester AI Club!
 
-Here is where you can access all of our workshops and projects
+Here is where we will post the code for our projects. Currently, we are working on pendulum balancing.
