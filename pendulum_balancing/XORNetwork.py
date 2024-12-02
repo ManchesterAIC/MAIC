@@ -1,14 +1,12 @@
-import Neuron
-
-def step(x):
-    return 1 if x > 0 else 0
+import neuron
+from utils import step
 
 class XORNetwork:
     #Initialise XOR (returns true when inputs are different) with weights and biases
     def __init__(self):
-        self.h1 = Neuron.Neuron([0.5,0.5], -0.45) #First hidden neuron
-        self.h2 = Neuron.Neuron([-0.5,-0.5], 1) #Second hidden neuron
-        self.out = Neuron.Neuron([0.5,0.5], -0.9) #Output neuron
+        self.h1 = neuron.Neuron([0.5,0.5], -0.45) #First hidden neuron
+        self.h2 = neuron.Neuron([-0.5,-0.5], 1) #Second hidden neuron
+        self.out = neuron.Neuron([0.5,0.5], -0.9) #Output neuron
     
     #Forward pass through XOR network
     def forward(self, inputs):
