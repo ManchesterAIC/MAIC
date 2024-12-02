@@ -3,23 +3,19 @@ import math
 import matplotlib.pyplot as plt
 
 #constants
-g = 9.81
-m1 = 1
-m2 = 1
-L1 = 100
-L2 = 100
+g = 9.81 #Force of gravity
+m1, m2 = 1 #Masses of each pendulum
+L1, L2 = 100 #Pendulum lengths in pixels
 
 #angles defining the system
-th1 = math.pi/2
-th2 = math.pi/2
+th1, th2 = math.pi/2 #Start each pendulum facing down
 
 #w1 = th1'. w2 = th2'
-w1 = 0
-w2 = 0
+w1, w2 = 0 #Angular velocities of pendulums, starting stationary
 
-dt = 0.025
+dt = 0.025 #Seconds per frame of the simulation
 
-#define 2 differential equations to describe the system. 
+#Differential equation to calculate angular acceleration for the first pendulum
 def fun1(th1, th2, w2):
     #o1 = w1'
     r = -g*(2*m1 + m2)*math.sin(th1)
@@ -28,6 +24,7 @@ def fun1(th1, th2, w2):
     r /= L1*(2*m1 + m2 - m2*math.cos(2*th1 - 2*th2))
     return r
 
+#Differential equation to calculate angular acceleration for the second pendulum
 def fun2(th1, th2, w1, w2):
     #o2 = w2'
     r = (w1**2)*L1*(m1 + m2)
@@ -41,9 +38,11 @@ def fun2(th1, th2, w1, w2):
 o1 = fun1(th1, th2, w2)
 o2 = fun2(th1, th2, w1, w2)
 
-#used for verficiation
+#Calculates total energy of the system
 def energy(th1, th2, w1, w2):
+    #Kinetic energy
     KE = 0.5 * m1 * (L1 * w1)**2 + 0.5 * m2 * ((L1 * w1)**2 + (L2 * w2)**2 + 2 * L1 * L2 * w1 * w2 * math.cos(th1 - th2))
+    #Potential energy
     PE = -m1 * g * L1 * math.cos(th1) - m2 * g * (L1 * math.cos(th1) + L2 * math.cos(th2))
     return KE + PE
 
@@ -78,6 +77,7 @@ if trace:
     trace_points = [x2, y2, x2, y2]
     trace_line = canvas.create_line(trace_points, fill="blue", width=1, smooth=True)
 
+#Update positions of pendulums
 def update(th1, th2, w1, w2, o1, o2):
     #using simplectic method instead for updating variables
     o1 = (fun1(th1, th2, w2))
